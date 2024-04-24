@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2ftn5sr37k2r"]
+
+[ext_resource type="Script" path="res://scenes/board.gd" id="1_j0t46"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdyki"]
+size = Vector2(620, 579.5)
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_j0t46")
+
+[node name="DebugBgLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="DebugBgLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.298039)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(264, 346)
+rotation = -0.0994838
+skew = -0.0994838
+
+[node name="MarkerCenter" type="Marker2D" parent="Node2D"]
+unique_name_in_owner = true
+
+[node name="MarkerBottom" type="Marker2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0, 165)
+
+[node name="MarkerTop" type="Marker2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0, -165)
+
+[node name="MarkerLeft" type="Marker2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(-145, 0)
+
+[node name="MarkerRight" type="Marker2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(145, 0)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="PlayArea" type="ColorRect" parent="Area2D"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.337255, 0.4, 0.00784314, 0.501961)
+offset_left = -37.0
+offset_top = -18.0
+offset_right = 557.0
+offset_bottom = 559.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(260, 268.75)
+shape = SubResource("RectangleShape2D_tdyki")
+
+[node name="MarkerCard1" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(117, 795)
+
+[node name="MarkerCard2" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(264, 795)
+
+[node name="MarkerCard3" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(411, 795)
+
+[node name="MarkerCardRight" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 278)
+
+[node name="MarkerCardTop" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(258, -87)
+
+[node name="MarkerCardLeft" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-102, 282)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://dow4o0jys17kh"]
+
+[ext_resource type="Script" path="res://scenes/card.gd" id="1_5vowh"]
+[ext_resource type="Texture2D" uid="uid://bdfwvh6fx1qdt" path="res://assets/card.png" id="1_a8wlf"]
+[ext_resource type="Theme" uid="uid://dn5o2urwg88i2" path="res://theme.tres" id="3_325a8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eby7x"]
+size = Vector2(114, 126)
+
+[node name="Card" type="Node2D"]
+z_index = 100
+script = ExtResource("1_5vowh")
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -79.0
+offset_top = -123.0
+offset_right = 79.0
+offset_bottom = 121.0
+flat = true
+
+[node name="Assets" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Assets"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_a8wlf")
+
+[node name="RankLabel" type="Label" parent="Assets"]
+unique_name_in_owner = true
+offset_left = -34.0
+offset_top = -110.0
+offset_right = 30.0
+offset_bottom = -77.0
+theme = ExtResource("3_325a8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="Assets"]
+unique_name_in_owner = true
+offset_left = -21.0
+offset_top = 73.0
+offset_right = 15.0
+offset_bottom = 109.0
+theme = ExtResource("3_325a8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_eby7x")
+
+[connection signal="button_down" from="Button" to="." method="_on_touch_screen_button_pressed"]
+[connection signal="button_up" from="Button" to="." method="_on_touch_screen_button_released"]
