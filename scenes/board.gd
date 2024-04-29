@@ -47,13 +47,13 @@ func _play_npc_card(from: Marker2D, to: Marker2D):
 	_animate_card(card, to)
 
 func _card_on_table(card):
-	card.z_index = Global.CardIndex["on_table"] + turn
+	card.set_card_z_index(Global.CardIndex["on_table"] + turn)
 	
 func _animate_card(card: Card, marker: Marker2D):
 	%PlayArea.modulate = Color(%PlayArea.modulate, 0.5)
 	var final_position = marker.global_position + Vector2(20, 25) * turn
 	var tween = get_tree().create_tween()
-	card.z_index = Global.CardIndex["dragging"]
+	card.set_card_z_index(Global.CardIndex["dragging"])
 	tween.tween_property(card, "position", %MarkerCenter.global_position, 1.2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	tween.parallel()
 	tween.tween_property(card, "scale", Vector2(1.6, 1.6), 1.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
@@ -80,7 +80,7 @@ func _on_card_cancel(card):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", card.initial_position_mark.position, 1.2).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	await tween.finished
-	card.z_index = Global.CardIndex["on_table"]
+	card.set_card_z_index(Global.CardIndex["on_table"])
 
 
 func _on_area_2d_area_entered(area):

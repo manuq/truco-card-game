@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dow4o0jys17kh"]
+[gd_scene load_steps=7 format=3 uid="uid://dow4o0jys17kh"]
 
 [ext_resource type="Script" path="res://scenes/card.gd" id="1_5vowh"]
 [ext_resource type="Texture2D" uid="uid://bdfwvh6fx1qdt" path="res://assets/card.png" id="1_a8wlf"]
 [ext_resource type="Theme" uid="uid://dn5o2urwg88i2" path="res://theme.tres" id="3_325a8"]
+[ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="4_bjhvj"]
+
+[sub_resource type="Curve" id="Curve_mh2mt"]
+_data = [Vector2(0, 1), 0.0, -2.48242, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eby7x"]
 size = Vector2(114, 126)
@@ -49,6 +55,14 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Trail2D" type="Line2D" parent="Assets"]
+unique_name_in_owner = true
+width = 100.0
+width_curve = SubResource("Curve_mh2mt")
+joint_mode = 2
+script = ExtResource("4_bjhvj")
+length = 20
 
 [node name="Area2D" type="Area2D" parent="."]
 

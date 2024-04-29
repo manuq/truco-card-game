@@ -79,7 +79,7 @@ func _process(_delta):
 func _on_touch_screen_button_pressed():
 	if _played:
 		return
-	z_index = Global.CardIndex["dragging"]
+	set_card_z_index(Global.CardIndex["dragging"])
 	_dragging = true
 
 
@@ -100,3 +100,8 @@ func confirm_play():
 func cancel_play():
 	_dragging = false
 	cancel.emit(self)
+	
+func set_card_z_index(value):
+	%Trail2D.set_z_index(value - 1)
+	set_z_index(value)
+	
