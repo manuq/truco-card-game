@@ -22,30 +22,6 @@ color = Color(0, 0, 0, 0.298039)
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(264, 346)
-rotation = -0.0994838
-skew = -0.0994838
-
-[node name="MarkerCenter" type="Marker2D" parent="Node2D"]
-unique_name_in_owner = true
-
-[node name="MarkerBottom" type="Marker2D" parent="Node2D"]
-unique_name_in_owner = true
-position = Vector2(0, 165)
-
-[node name="MarkerTop" type="Marker2D" parent="Node2D"]
-unique_name_in_owner = true
-position = Vector2(0, -165)
-
-[node name="MarkerLeft" type="Marker2D" parent="Node2D"]
-unique_name_in_owner = true
-position = Vector2(-145, 0)
-
-[node name="MarkerRight" type="Marker2D" parent="Node2D"]
-unique_name_in_owner = true
-position = Vector2(145, 0)
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="PlayArea" type="ColorRect" parent="Area2D"]
@@ -61,15 +37,15 @@ offset_bottom = 559.0
 position = Vector2(260, 268.75)
 shape = SubResource("RectangleShape2D_tdyki")
 
-[node name="MarkerCard1" type="Marker2D" parent="."]
+[node name="MarkerCardBottom1" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(117, 795)
 
-[node name="MarkerCard2" type="Marker2D" parent="."]
+[node name="MarkerCardBottom2" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(264, 795)
 
-[node name="MarkerCard3" type="Marker2D" parent="."]
+[node name="MarkerCardBottom3" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(411, 795)
 
@@ -79,11 +55,91 @@ position = Vector2(640, 278)
 
 [node name="MarkerCardTop" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(258, -87)
+position = Vector2(291, -72)
 
 [node name="MarkerCardLeft" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-102, 282)
 
+[node name="MarkerCenter" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(264, 346)
+
+[node name="MarkerBottom" type="Marker2D" parent="MarkerCenter"]
+unique_name_in_owner = true
+position = Vector2(0, 165)
+
+[node name="MarkerTop" type="Marker2D" parent="MarkerCenter"]
+unique_name_in_owner = true
+position = Vector2(1.52588e-05, -165)
+
+[node name="MarkerLeft" type="Marker2D" parent="MarkerCenter"]
+unique_name_in_owner = true
+position = Vector2(-145, 0)
+
+[node name="MarkerRight" type="Marker2D" parent="MarkerCenter"]
+unique_name_in_owner = true
+position = Vector2(145, 0)
+
+[node name="RestartButton" type="Button" parent="MarkerCenter"]
+unique_name_in_owner = true
+z_index = 1000
+z_as_relative = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -181.0
+offset_top = -58.0
+offset_right = 181.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(181, 58)
+theme_override_font_sizes/font_size = 70
+disabled = true
+text = "RESTART"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RoundsLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 77.0
+offset_bottom = 62.0
+pivot_offset = Vector2(11, 33)
+theme_override_font_sizes/font_size = 40
+text = "???"
+
+[node name="WinnerLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -249.0
+offset_top = 59.0
+offset_bottom = 121.0
+grow_horizontal = 0
+pivot_offset = Vector2(234, 36)
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 40
+text = "Who wins??"
+horizontal_alignment = 2
+
+[node name="PlayerLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -249.0
+offset_bottom = 62.0
+grow_horizontal = 0
+pivot_offset = Vector2(234, 36)
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 40
+text = "Who am I??"
+horizontal_alignment = 2
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="pressed" from="MarkerCenter/RestartButton" to="." method="_on_restart_button_pressed"]

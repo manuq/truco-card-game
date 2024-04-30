@@ -1,0 +1,174 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvgautdyqompa"]
+
+[ext_resource type="Script" path="res://scenes/player_selection.gd" id="1_2g817"]
+[ext_resource type="PackedScene" uid="uid://jetsiiq5bwu5" path="res://scenes/card_highlight.tscn" id="2_fn1nj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t3uv5"]
+bg_color = Color(0.247059, 0, 0.0941176, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxugu"]
+bg_color = Color(0.027451, 0, 0.25098, 0.588235)
+
+[node name="PlayerSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2g817")
+
+[node name="CenterNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(262, 469)
+scale = Vector2(0.848953, 0.848953)
+
+[node name="CardHighlight" parent="CenterNode" instance=ExtResource("2_fn1nj")]
+unique_name_in_owner = true
+visible = false
+
+[node name="TeamAP1Button" type="Button" parent="CenterNode"]
+unique_name_in_owner = true
+offset_left = -85.0
+offset_top = 96.0
+offset_right = 89.0
+offset_bottom = 270.0
+pivot_offset = Vector2(87, 87)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t3uv5")
+text = "bot
+"
+
+[node name="TeamBP1Button" type="Button" parent="CenterNode"]
+unique_name_in_owner = true
+offset_left = 62.0
+offset_top = -91.0
+offset_right = 236.0
+offset_bottom = 83.0
+pivot_offset = Vector2(87, 87)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jxugu")
+text = "bot
+"
+
+[node name="TeamAP2Button" type="Button" parent="CenterNode"]
+unique_name_in_owner = true
+offset_left = -85.0
+offset_top = -278.0
+offset_right = 89.0
+offset_bottom = -104.0
+pivot_offset = Vector2(87, 87)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t3uv5")
+text = "bot
+"
+
+[node name="TeamBP2Button" type="Button" parent="CenterNode"]
+unique_name_in_owner = true
+offset_left = -233.0
+offset_top = -91.0
+offset_right = -59.0
+offset_bottom = 83.0
+pivot_offset = Vector2(87, 87)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jxugu")
+text = "bot
+"
+
+[node name="Label2" type="Label" parent="CenterNode"]
+offset_left = -187.29
+offset_top = 273.278
+offset_right = 200.71
+offset_bottom = 311.278
+theme_override_font_sizes/font_size = 20
+text = "Team A Player 1"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="CenterNode"]
+offset_left = -187.29
+offset_top = -319.217
+offset_right = 200.71
+offset_bottom = -281.217
+theme_override_font_sizes/font_size = 20
+text = "Team A Player 2"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="CenterNode"]
+offset_left = -22.3805
+offset_top = 81.2766
+offset_right = 365.619
+offset_bottom = 146.277
+theme_override_font_sizes/font_size = 20
+text = "Team B
+Player 1"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="CenterNode"]
+offset_left = -363.978
+offset_top = 81.2766
+offset_right = 24.0222
+offset_bottom = 146.277
+theme_override_font_sizes/font_size = 20
+text = "Team B
+Player 2"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 101.0
+offset_right = 409.0
+offset_bottom = 139.0
+text = "Please select which team to join:"
+
+[node name="ServerLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 79.0
+offset_top = 773.0
+offset_right = 467.0
+offset_bottom = 811.0
+text = "Wait for other players, then press:"
+horizontal_alignment = 1
+
+[node name="ClientLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 66.0
+offset_top = 812.0
+offset_right = 479.0
+offset_bottom = 850.0
+text = "Waiting for the game to start."
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 199.0
+offset_top = 825.0
+offset_right = 326.0
+offset_bottom = 895.0
+scale = Vector2(0.990929, 1)
+theme_override_font_sizes/font_size = 40
+text = "start!
+"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

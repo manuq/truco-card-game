@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckv1ovd054ekp"]
+[gd_scene load_steps=6 format=3 uid="uid://ckv1ovd054ekp"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_5rl56"]
-[ext_resource type="PackedScene" uid="uid://b2ftn5sr37k2r" path="res://scenes/board.tscn" id="1_omgte"]
 
 [sub_resource type="Shader" id="Shader_ifxqe"]
 code = "shader_type canvas_item;
 
-uniform vec2 resolution = vec2(540.0f, 960.0);
+uniform vec2 resolution = vec2(540.0, 960.0);
 uniform vec3 line_color: source_color = vec3(1.0, 1.0, 1.0);
 uniform float zoom: hint_range(1.0, 50.0, 0.1) = 20.0;
 uniform float thickness: hint_range(0.1, 10.0, 0.1) = 2.0;
+uniform vec2 velocity = vec2(0.03, 0.0);
+uniform float rotation: hint_range(-1.0, 1.0, 0.1) = -0.1;
+uniform float skew: hint_range(-1.0, 1.0, 0.1) = -0.1;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -28,10 +30,10 @@ vec2 rotate(vec2 uv, float angle) {
 void fragment() {
 	vec2 uv = UV - 0.5;
 	uv.x *= resolution.x / resolution.y;
-	uv = rotate(uv, 0.1);
-	uv.x -= uv.y * 0.1;
-	// uv.x += TIME * 0.05 * 1.0;
-	uv.y += TIME * 0.03 * 1.0;
+	uv = rotate(uv, -rotation);
+	uv.x += uv.y * skew;
+	uv.x += TIME * velocity.x;
+	uv.y += TIME * velocity.y;
 	float line_thinkness = zoom * thickness / resolution.y;
 	vec3 color = smoothstep(1.0 - line_thinkness, 1.0, draw_grid(uv * zoom)) * line_color;
 	COLOR = vec4(color, 1.0);
@@ -48,6 +50,9 @@ shader_parameter/resolution = Vector2(540, 960)
 shader_parameter/line_color = Color(0.160784, 0.286275, 0.219608, 1)
 shader_parameter/zoom = 20.0
 shader_parameter/thickness = 2.0
+shader_parameter/velocity = Vector2(0.03, 0)
+shader_parameter/rotation = -0.1
+shader_parameter/skew = -0.1
 
 [sub_resource type="Shader" id="Shader_feqmv"]
 code = "shader_type canvas_item;
@@ -131,10 +136,9 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="MainLayer/CenterContainer/SubViewportContainer"]
+unique_name_in_owner = true
 disable_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(540, 960)
 render_target_update_mode = 4
-
-[node name="Board" parent="MainLayer/CenterContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_omgte")]
