@@ -36,6 +36,10 @@ func _set_rank(_rank):
 		%RankLabel.text = str(rank)
 
 
+func _to_string():
+	return "< suit: " + Game.Suits.keys()[suit] + ", rank: " + str(rank) + ", points: " + str(points) + " >"
+
+
 func _set_points(_points):
 	points = _points
 	if %PointsLabel:
