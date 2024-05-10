@@ -86,15 +86,13 @@ func _on_play_my_card():
 func _card_on_table(player: Game.Players, card: Card):
 	card.reparent(%MarkerCenter)
 	card.set_card_z_index(Game.CardIndex["on_table"] + Game.current_round)
-	var card_info = {
-		"suit": card.suit,
-		"rank": card.rank,
-		"points": card.points,
-	}
-	if multiplayer.is_server():
-		Game.play_card() #card_info)
+	var is_bot = Game._get_player_kind(player) == Game.PlayerKinds.Bot
+	if multiplayer.is_server() and (player == Game.my_player or is_bot):
+		prints("server playing card", card, "is bot:", is_bot)
+		Game.play_card()
 	elif player == Game.my_player:
-		Game.play_card.rpc_id(1) #, card_info)
+		prints("peer", multiplayer.get_unique_id(), "playing card", card)
+		Game.play_card.rpc_id(1)
 
 
 func _animate_card(player: Game.Players, card: Card, marker: Marker2D):

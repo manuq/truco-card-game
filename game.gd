@@ -206,7 +206,7 @@ func _ask_peer_card():
 	play_my_card.emit()
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func _send_play_card(player, card_info):
 	if player != my_player:
 		play_npc_card.emit(player, card_info)
@@ -238,16 +238,13 @@ func update_card_info(card_info):
 @rpc("any_peer", "call_remote", "reliable")
 func play_card(): # card_info):
 	var is_bot = _get_player_kind(_current_player) == PlayerKinds.Bot
-	# prints("play_card, sender:", multiplayer.get_remote_sender_id(), "current:", _current_player, "is current bot:", is_bot)
-	#if _current_player != my_player and multiplayer.get_remote_sender_id() == 0:
-		#return
 	if multiplayer.get_remote_sender_id() != 0:
-		card_played.emit() # card_info)
+		card_played.emit()
 	else:
 		if _current_player == my_player:
-			card_played.emit() # card_info)
+			card_played.emit()
 		elif is_bot:
-			card_played.emit() # card_info)
+			card_played.emit()
 
 
 func _send_rounds_won_label():
