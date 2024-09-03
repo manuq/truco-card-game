@@ -23,6 +23,9 @@ func _ready():
 	Multiplayer.connected_as_server.connect(_on_connected)
 	Multiplayer.connected_as_client.connect(_on_connected)
 
+	%NetworkGateway.resolved_as_necessary.connect(Multiplayer._on_network_gateway_resolved_as_necessary)
+	%NetworkGateway.webrtc_multiplayerpeer_set.connect(Multiplayer._on_network_gateway_webrtc_multiplayerpeer_set)
+
 
 func _on_window_size_changed():
 	%ColorRect.material.set_shader_parameter("resolution", get_tree().get_root().size)

@@ -21,4 +21,23 @@ theme_override_font_sizes/font_size = 40
 text = "enter
 "
 
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.124
+anchor_bottom = 0.104
+offset_left = 294.0
+offset_top = 597.0
+offset_right = 370.04
+offset_bottom = 528.16
+text = "tomato"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 598.0
+offset_right = 261.0
+offset_bottom = 621.0
+text = "Roomname: "
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

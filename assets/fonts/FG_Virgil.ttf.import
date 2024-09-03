@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/FG_Virgil.ttf-e0aa9761b187e97349a33f4699cc053
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
