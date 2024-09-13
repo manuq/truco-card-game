@@ -101,6 +101,13 @@ theme_override_font_sizes/font_size = 70
 disabled = true
 text = "RESTART"
 
+[node name="QuitButton" type="Button" parent="MarkerCenter"]
+offset_left = 91.0
+offset_top = 572.0
+offset_right = 146.0
+offset_bottom = 618.0
+text = "Quit"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="RoundsLabel" type="Label" parent="CanvasLayer"]
@@ -143,3 +150,4 @@ horizontal_alignment = 2
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="pressed" from="MarkerCenter/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarkerCenter/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -41,4 +41,3 @@ func _process(_delta):
 			get_tree().paused = false
 		await get_tree().process_frame
 		get_tree().paused = true
-

@@ -143,8 +143,9 @@ func _update_winner_label(winner):
 
 
 func _update_restart_button(winner):
-	%RestartButton.disabled = winner == null
-	%RestartButton.visible = winner != null
+	var restartbuttonvisible = (winner != null and multiplayer.is_server())
+	%RestartButton.disabled = not restartbuttonvisible
+	%RestartButton.visible = restartbuttonvisible
 	if %RestartButton.visible:
 		DampedOscillator.animate(%RestartButton, "rotation_degrees", 200.0, 10.0, 15.0, 100.0)
 
@@ -196,4 +197,7 @@ func _on_area_2d_area_exited(area):
 
 
 func _on_restart_button_pressed():
+	Game.restart()
+
+func _on_quit_button_pressed():
 	Game.restart()

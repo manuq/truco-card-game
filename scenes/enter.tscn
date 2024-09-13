@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://f1e220vwvgj"]
+[gd_scene load_steps=3 format=3 uid="uid://f1e220vwvgj"]
 
 [ext_resource type="Script" path="res://scenes/enter.gd" id="1_bb887"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eehrf"]
+bg_color = Color(0.193127, 0.355163, 0.195968, 1)
 
 [node name="Enter" type="Control"]
 layout_mode = 3
@@ -13,31 +16,104 @@ script = ExtResource("1_bb887")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 177.0
-offset_top = 378.0
-offset_right = 351.0
-offset_bottom = 551.0
+offset_left = 178.0
+offset_top = 788.0
+offset_right = 352.0
+offset_bottom = 858.0
 theme_override_font_sizes/font_size = 40
-text = "enter
+text = "start
 "
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="GoOnline" type="Button" parent="."]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 321.0
+offset_right = 505.0
+offset_bottom = 453.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eehrf")
+toggle_mode = true
+text = "go 
+online
+"
+
+[node name="LineEditRoom" type="LineEdit" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.124
 anchor_bottom = 0.104
-offset_left = 294.0
-offset_top = 597.0
-offset_right = 370.04
-offset_bottom = 528.16
+offset_left = 184.0
+offset_top = 332.0
+offset_right = 260.04
+offset_bottom = 278.16
 text = "tomato"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 163.0
-offset_top = 598.0
-offset_right = 261.0
-offset_bottom = 621.0
+offset_left = 53.0
+offset_top = 333.0
+offset_right = 184.0
+offset_bottom = 371.0
 text = "Roomname: "
 
+[node name="LineEditName" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.124
+anchor_bottom = 0.104
+offset_left = 186.0
+offset_top = 388.0
+offset_right = 262.04
+offset_bottom = 334.16
+text = "person"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 387.0
+offset_right = 180.0
+offset_bottom = 425.0
+text = "Your name:"
+
+[node name="PlayersInGame" type="ItemList" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.074
+anchor_bottom = 0.042
+offset_left = 278.0
+offset_top = 659.0
+offset_right = 399.04
+offset_bottom = 691.68
+
+[node name="Label3" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 74.0
+offset_top = 666.0
+offset_right = 262.0
+offset_bottom = 704.0
+text = "Players in game:"
+
+[node name="PlayersWaiting" type="ItemList" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.074
+anchor_bottom = 0.042
+offset_left = 277.0
+offset_top = 491.0
+offset_right = 398.04
+offset_bottom = 592.68
+
+[node name="Label4" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 79.0
+offset_top = 488.0
+offset_right = 267.0
+offset_bottom = 526.0
+text = "Players waiting:"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="toggled" from="GoOnline" to="." method="_on_go_online_toggled"]

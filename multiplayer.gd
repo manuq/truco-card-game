@@ -8,8 +8,7 @@ const MAX_CLIENTS = 3 # 4 players
 signal connected_as_server
 signal connected_as_client
 signal player_by_peer_changed
-
-
+signal any_disconnected
 
 
 func restart():
@@ -18,28 +17,25 @@ func restart():
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	player_by_peer = {}
+	any_disconnected.emit()
+
+	# can't reset and disconnect without this
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.NETWORK_OFF)
+	await get_tree().process_frame
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_NECESSARY_MANUALCHANGE)
 
 
 # the % thing doesn't seem to work for me
 @onready var NetworkGateway = get_node("/root/Main/MainLayer/NetworkGateway")
 
-var Droomname = ""
-func host_or_join_game(roomname):
-	Droomname = roomname
-	NetworkGateway.MQTTsignalling.get_node("VBox/HBox2/roomname").text = roomname
-	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_NECESSARY_MANUALCHANGE)
-	# calls-back to _on_network_gateway_resolved_as_necessary
-
-func _on_network_gateway_resolved_as_necessary(asserver):
-	print("_on_network_gateway_resolved_as_necessary ", asserver)
+func host_or_join_game(asserver):
 	if asserver:
 		print("hosting game")
 		NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_SERVER)
-		# calls-back to _on_network_gateway_webrtc_multiplayerpeer_set(asserver)
 	else:
 		print("joining game")
 		NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_CLIENT)
-		# calls-back to _on_network_gateway_webrtc_multiplayerpeer_set(asserver)
+	# calls-back to _on_network_gateway_webrtc_multiplayerpeer_set(asserver)
 
 func _on_network_gateway_webrtc_multiplayerpeer_set(asserver):
 	if asserver:
@@ -117,14 +113,18 @@ func _on_connected_to_server():
 		request_player_change.rpc_id(1, Game.my_player)
 	connected_as_client.emit()
 
-
 func _on_connection_failed():
 	print("Connection failed, go back to lobby")
 	# FIXME go_to_lobby()
-
 
 func _on_server_disconnected():
 	print("Server disconnected, rejoin")
 	multiplayer.multiplayer_peer = null
 	player_by_peer = {}
-	host_or_join_game(Droomname)
+	# bring back the enter object
+	any_disconnected.emit()
+
+	# can't reset and disconnect without this
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.NETWORK_OFF)
+	await get_tree().process_frame
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_NECESSARY_MANUALCHANGE)
