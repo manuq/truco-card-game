@@ -15,6 +15,11 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+general/2d_panning_strength=0.91
+driver/enable_input=true
+
 [autoload]
 
 GlobalInput="*res://global_input.gd"

@@ -24,6 +24,8 @@ func _ready():
 	Multiplayer.any_disconnected.connect(_on_game_ended)
 
 	%NetworkGateway.webrtc_multiplayerpeer_set.connect(Multiplayer._on_network_gateway_webrtc_multiplayerpeer_set)
+	%NetworkGateway.set_vox_on()
+
 
 func _on_window_size_changed():
 	%ColorRect.material.set_shader_parameter("resolution", get_tree().get_root().size)
