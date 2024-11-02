@@ -12,7 +12,6 @@ var _grid_velocity_for_position = {
 	Game.PlayerPositions.BOTTOM: Vector2(0.0, 0.03),
 }
 
-
 func _ready():
 	get_tree().get_root().size_changed.connect(_on_window_size_changed)
 	%SubViewport.add_child(enter_scene.instantiate())
@@ -22,6 +21,10 @@ func _ready():
 	_on_table_changed()
 	Multiplayer.connected_as_server.connect(_on_connected)
 	Multiplayer.connected_as_client.connect(_on_connected)
+	Multiplayer.any_disconnected.connect(_on_game_ended)
+
+	%NetworkGateway.webrtc_multiplayerpeer_set.connect(Multiplayer._on_network_gateway_webrtc_multiplayerpeer_set)
+	%NetworkGateway.set_vox_on()
 
 
 func _on_window_size_changed():
@@ -41,12 +44,19 @@ func _on_table_changed():
 
 func _go_to_scene(scene: PackedScene):
 	for c in %SubViewport.get_children():
-		c.queue_free()
-	%SubViewport.add_child(scene.instantiate())
+		if c.name == "Enter":
+			c.visible = (scene == null)
+		else:
+			c.queue_free()
+	if scene:
+		%SubViewport.add_child(scene.instantiate())
 	
 
 func _on_connected():
 	_go_to_scene(player_selection_scene)
+
+func _on_game_ended():
+	_go_to_scene(null)
 
 
 func _on_start_game():

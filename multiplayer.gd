@@ -8,6 +8,7 @@ const MAX_CLIENTS = 3 # 4 players
 signal connected_as_server
 signal connected_as_client
 signal player_by_peer_changed
+signal any_disconnected
 
 
 func restart():
@@ -16,47 +17,49 @@ func restart():
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	player_by_peer = {}
+	any_disconnected.emit()
+
+	# can't reset and disconnect without this
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.NETWORK_OFF)
+	await get_tree().process_frame
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_NECESSARY_MANUALCHANGE)
 
 
-func host_or_join_game():
-	client_peer = ENetMultiplayerPeer.new()
-	var error = client_peer.create_server(DEFAULT_PORT, MAX_CLIENTS)
-	if error != OK:
-		print(error)
-		join_existing_game(DEFAULT_IP)
-		return
-	print("hosting game")
-	multiplayer.multiplayer_peer = client_peer
-	if not multiplayer.peer_connected.is_connected(_on_peer_connected):
-		multiplayer.peer_connected.connect(_on_peer_connected)
-	if not multiplayer.peer_disconnected.is_connected(_on_peer_disconnected):
-		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	if Game.my_player == null:
-		Game.my_player = Game.Players.TeamAP1
+# the % thing doesn't seem to work for me
+@onready var NetworkGateway = get_node("/root/Main/MainLayer/NetworkGateway")
 
-	player_by_peer[multiplayer.get_unique_id()] = Game.my_player
-	player_by_peer_changed.emit()
-	connected_as_server.emit()
+func host_or_join_game(asserver):
+	if asserver:
+		print("hosting game")
+		NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_SERVER)
+	else:
+		print("joining game")
+		NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_CLIENT)
+	# calls-back to _on_network_gateway_webrtc_multiplayerpeer_set(asserver)
 
+func _on_network_gateway_webrtc_multiplayerpeer_set(asserver):
+	if asserver:
+		if not multiplayer.peer_connected.is_connected(_on_peer_connected):
+			multiplayer.peer_connected.connect(_on_peer_connected)
+		if not multiplayer.peer_disconnected.is_connected(_on_peer_disconnected):
+			multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+		if Game.my_player == null:
+			Game.my_player = Game.Players.TeamAP1
+		player_by_peer[multiplayer.get_unique_id()] = Game.my_player
+		player_by_peer_changed.emit()
+		connected_as_server.emit()
 
-func join_existing_game(ip: String):
-	print("joining game")
-	client_peer = ENetMultiplayerPeer.new()
-	var error = client_peer.create_client(ip, DEFAULT_PORT)
-	if error != OK:
-		print(error)
-		return
-	multiplayer.multiplayer_peer = client_peer
-	if not multiplayer.peer_connected.is_connected(_on_peer_connected):
-		multiplayer.peer_connected.connect(_on_peer_connected)
-	if not multiplayer.peer_disconnected.is_connected(_on_peer_disconnected):
-		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	if not multiplayer.connected_to_server.is_connected(_on_connected_to_server):
-		multiplayer.connected_to_server.connect(_on_connected_to_server)
-	if not multiplayer.connection_failed.is_connected(_on_connection_failed):
-		multiplayer.connection_failed.connect(_on_connection_failed)
-	if not multiplayer.server_disconnected.is_connected(_on_server_disconnected):
-		multiplayer.server_disconnected.connect(_on_server_disconnected)
+	else:
+		if not multiplayer.peer_connected.is_connected(_on_peer_connected):
+			multiplayer.peer_connected.connect(_on_peer_connected)
+		if not multiplayer.peer_disconnected.is_connected(_on_peer_disconnected):
+			multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+		if not multiplayer.connected_to_server.is_connected(_on_connected_to_server):
+			multiplayer.connected_to_server.connect(_on_connected_to_server)
+		if not multiplayer.connection_failed.is_connected(_on_connection_failed):
+			multiplayer.connection_failed.connect(_on_connection_failed)
+		if not multiplayer.server_disconnected.is_connected(_on_server_disconnected):
+			multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 
 @rpc("authority", "call_local", "reliable")
@@ -110,14 +113,18 @@ func _on_connected_to_server():
 		request_player_change.rpc_id(1, Game.my_player)
 	connected_as_client.emit()
 
-
 func _on_connection_failed():
 	print("Connection failed, go back to lobby")
 	# FIXME go_to_lobby()
-
 
 func _on_server_disconnected():
 	print("Server disconnected, rejoin")
 	multiplayer.multiplayer_peer = null
 	player_by_peer = {}
-	host_or_join_game()
+	# bring back the enter object
+	any_disconnected.emit()
+
+	# can't reset and disconnect without this
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.NETWORK_OFF)
+	await get_tree().process_frame
+	NetworkGateway.selectandtrigger_networkoption(NetworkGateway.NETWORK_OPTIONS_MQTT_WEBRTC.AS_NECESSARY_MANUALCHANGE)

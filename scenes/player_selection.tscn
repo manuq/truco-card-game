@@ -35,11 +35,11 @@ offset_right = 89.0
 offset_bottom = 270.0
 pivot_offset = Vector2(87, 87)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_t3uv5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_t3uv5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_t3uv5")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_t3uv5")
-theme_override_styles/focus = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t3uv5")
 text = "bot
 "
 
@@ -51,11 +51,11 @@ offset_right = 236.0
 offset_bottom = 83.0
 pivot_offset = Vector2(87, 87)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jxugu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jxugu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_jxugu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_jxugu")
-theme_override_styles/focus = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jxugu")
 text = "bot
 "
 
@@ -67,11 +67,11 @@ offset_right = 89.0
 offset_bottom = -104.0
 pivot_offset = Vector2(87, 87)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/focus = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_t3uv5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_t3uv5")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_t3uv5")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_t3uv5")
-theme_override_styles/focus = SubResource("StyleBoxFlat_t3uv5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_t3uv5")
 text = "bot
 "
 
@@ -83,11 +83,11 @@ offset_right = -59.0
 offset_bottom = 83.0
 pivot_offset = Vector2(87, 87)
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jxugu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jxugu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_jxugu")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_jxugu")
-theme_override_styles/focus = SubResource("StyleBoxFlat_jxugu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jxugu")
 text = "bot
 "
 

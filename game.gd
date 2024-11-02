@@ -182,7 +182,7 @@ func restart():
 	current_round = 0
 	cardsinfo_played = [{}, {}, {}]
 	_rounds_won = []
-	get_tree().reload_current_scene()
+	#get_tree().reload_current_scene()
 
 
 @rpc("authority", "call_local", "reliable")
